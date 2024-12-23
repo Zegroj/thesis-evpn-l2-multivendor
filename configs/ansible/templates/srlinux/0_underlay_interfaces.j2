@@ -1,0 +1,20 @@
+enter candidate
+{% for interface in interfaces -%}
+set / interface {{ interface }}
+set / interface {{ interface }} admin-state enable
+set / interface {{ interface }} subinterface 0
+set / interface {{ interface }} subinterface 0 admin-state enable
+set / interface {{ interface }} subinterface 0 ipv4
+set / interface {{ interface }} subinterface 0 ipv4 admin-state enable
+set / interface {{ interface }} subinterface 0 ipv4 address {{ interfaces[interface].address }}
+{% if interface != 'system0' -%}
+set / interface {{ interface }} subinterface 0 ip-mtu {{ interfaces[interface].mtu }}
+{% endif %}
+{% endfor -%}
+set / network-instance default
+set / network-instance default ip-forwarding
+set / network-instance default ip-forwarding receive-ipv4-check false
+{% for interface in interfaces -%}
+set / network-instance default interface {{ interface }}.0
+{% endfor -%}
+commit now

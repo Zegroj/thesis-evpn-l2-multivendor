@@ -1,0 +1,17 @@
+enter candidate
+set / network-instance default protocols bgp group iBGP-overlay
+set / network-instance default protocols bgp group iBGP-overlay export-policy [ all ]
+set / network-instance default protocols bgp group iBGP-overlay import-policy [ all ]
+set / network-instance default protocols bgp group iBGP-overlay peer-as {{ bgp.ibgp_as }}
+set / network-instance default protocols bgp group iBGP-overlay afi-safi ipv4-unicast
+set / network-instance default protocols bgp group iBGP-overlay afi-safi ipv4-unicast admin-state disable
+set / network-instance default protocols bgp group iBGP-overlay afi-safi evpn
+set / network-instance default protocols bgp group iBGP-overlay afi-safi evpn admin-state enable
+set / network-instance default protocols bgp group iBGP-overlay local-as as-number {{ bgp.ibgp_as }}
+set / network-instance default protocols bgp group iBGP-overlay timers
+set / network-instance default protocols bgp group iBGP-overlay timers minimum-advertisement-interval 1
+
+/ network-instance default protocols bgp group iBGP-overlay route-reflector client true
+/ network-instance default protocols bgp group iBGP-overlay route-reflector cluster-id {{ bgp.cluster_id }}
+/ network-instance default protocols bgp dynamic-neighbors accept match 0.0.0.0/0 peer-group iBGP-overlay
+commit now

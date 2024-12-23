@@ -1,0 +1,27 @@
+interfaces:
+    ethernet-1/1:
+        address: '192.168.11.1/31'
+        mtu: 9000
+    ethernet-1/2:
+        address: '192.168.21.1/31'
+        mtu: 9000
+    ethernet-1/3:
+        address: '192.168.31.1/31'
+        mtu: 9000
+    system0:
+        address: '10.0.2.1/32'
+bgp:
+    ebgp_as: 201
+    ibgp_as: 100
+    router_id: '10.0.2.1'
+    cluster_id: '10.10.10.10'
+    neighbors:
+        192.168.11.0:
+                remote_as: 101
+        192.168.21.0:
+                remote_as: 102
+        192.168.31.0:
+                remote_as: 103
+remote_server:
+    address: '172.80.80.45'
+    port: 1514

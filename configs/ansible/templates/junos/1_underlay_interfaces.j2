@@ -1,0 +1,10 @@
+{% for interface in interfaces %}
+{% if interface == 'lo0' %}
+set interfaces {{ interface }} unit 0 family inet address {{ interfaces[interface].address }}
+{% else  %}
+set interfaces {{ interface }} unit 0 family inet address {{ interfaces[interface].address }}
+set interfaces {{ interface }} unit 0 enable
+set interfaces {{ interface }} mtu {{ interfaces[interface].mtu }}
+{% endif %}
+{% endfor %}
+commit

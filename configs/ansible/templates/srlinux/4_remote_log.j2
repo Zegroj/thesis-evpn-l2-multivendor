@@ -1,0 +1,7 @@
+enter candidate
+set / system logging network-instance mgmt
+set / system logging remote-server {{ remote_server.address}}
+set / system logging remote-server {{ remote_server.address}} transport udp
+set / system logging remote-server {{ remote_server.address}} remote-port {{ remote_server.port}}
+set / system logging remote-server {{ remote_server.address}} facility local6 priority match-above informational
+commit now

@@ -1,0 +1,33 @@
+enter candidate
+set / network-instance default protocols bgp
+set / network-instance default protocols bgp admin-state enable
+set / network-instance default protocols bgp autonomous-system {{ bgp.ebgp_as }}
+set / network-instance default protocols bgp router-id {{ bgp.router_id }}
+set / network-instance default protocols bgp ebgp-default-policy
+set / network-instance default protocols bgp ebgp-default-policy import-reject-all false
+set / network-instance default protocols bgp ebgp-default-policy export-reject-all false
+set / network-instance default protocols bgp group eBGPv6
+set / network-instance default protocols bgp group eBGPv6 afi-safi ipv4-unicast
+set / network-instance default protocols bgp group eBGPv6 afi-safi ipv4-unicast admin-state enable
+set / network-instance default protocols bgp group eBGPv6 afi-safi ipv4-unicast ipv4-unicast advertise-ipv6-next-hops true
+set / network-instance default protocols bgp group eBGPv6 afi-safi ipv4-unicast ipv4-unicast receive-ipv6-next-hops true
+set / network-instance default protocols bgp group eBGPv6 afi-safi ipv6-unicast
+set / network-instance default protocols bgp group eBGPv6 afi-safi ipv6-unicast admin-state enable
+set / network-instance default protocols bgp group eBGPv6 export-policy [ system_ip ]
+set / network-instance default protocols bgp afi-safi ipv4-unicast
+set / network-instance default protocols bgp afi-safi ipv4-unicast admin-state enable
+set / network-instance default protocols bgp afi-safi ipv4-unicast multipath
+set / network-instance default protocols bgp afi-safi ipv4-unicast multipath allow-multiple-as true
+set / network-instance default protocols bgp afi-safi ipv4-unicast multipath maximum-paths 64
+set / network-instance default protocols bgp afi-safi ipv6-unicast
+set / network-instance default protocols bgp afi-safi ipv6-unicast admin-state enable
+set / network-instance default protocols bgp afi-safi ipv6-unicast multipath
+set / network-instance default protocols bgp afi-safi ipv6-unicast multipath allow-multiple-as true
+set / network-instance default protocols bgp afi-safi ipv6-unicast multipath maximum-paths 64
+{% for neighbor in bgp.neighbors -%}
+set / network-instance default protocols bgp neighbor {{ neighbor }}
+set / network-instance default protocols bgp neighbor {{ neighbor }} admin-state enable
+set / network-instance default protocols bgp neighbor {{ neighbor }} peer-as {{ bgp.neighbors[neighbor].remote_as }}
+set / network-instance default protocols bgp neighbor {{ neighbor }} peer-group eBGPv6
+{% endfor -%}
+commit now

@@ -1,0 +1,92 @@
+---
+- name: Ansible Test
+  hosts: all
+  tasks:
+    - name: underlay interface
+      block:
+        - name: configure underlays interface
+          when: "'srlinux' in group_names"
+          nokia.srlinux.cli:
+            commands: "{{ lookup('template', 'templates/srlinux/0_underlay_interfaces.j2') }}"
+        - name: configure underlays interface
+          when: "'nxos' in group_names"
+          ansible.netcommon.cli_config:
+            config: "{{ lookup('template', 'templates/nxos/underlay_interfaces.j2') }}"
+        - name: configure underlays interface
+          when: "'junos' in group_names"
+          ansible.netcommon.cli_config:
+            config: "{{ lookup('template', 'templates/junos/1_underlay_interfaces.j2') }}"
+    - name: route map
+      block:
+        - name: route map
+          when: "'srlinux' in group_names"
+          nokia.srlinux.cli:
+            commands: "{{ lookup('template', 'templates/srlinux/1_route_map.j2') }}"
+        - name: route map
+          when: "'nxos' in group_names"
+          ansible.netcommon.cli_config:
+            config: "{{ lookup('template', 'templates/nxos/route_map.j2') }}"
+        - name: route map
+          when: "'junos' in group_names"
+          ansible.netcommon.cli_config:
+            config: "{{ lookup('template', 'templates/junos/2_route_map.j2') }}"
+    - name: eBGP
+      block:
+        - name: eBGP
+          when: "'srlinux' in group_names"
+          nokia.srlinux.cli:
+            commands: "{{ lookup('template', 'templates/srlinux/2_ebgp_spine.j2') }}"
+        - name: eBGP
+          when: "'nxos' in group_names"
+          ansible.netcommon.cli_config:
+            config: "{{ lookup('template', 'templates/nxos/bgp_leaf.j2') }}"
+        - name: eBGP
+          when: "'junos' in group_names"
+          ansible.netcommon.cli_config:
+            config: "{{ lookup('template', 'templates/junos/3_bgp_leaf.j2') }}"
+    - name: EVPN
+      block:
+        - name: EVPN
+          when: "'srlinux' in group_names"
+          nokia.srlinux.cli:
+            commands: "{{ lookup('template', 'templates/srlinux/3_ibgp_evpn.j2') }}"
+        - name: EVPN
+          when: "'nxos' in group_names"
+          ansible.netcommon.cli_config:
+            config: "{{ lookup('template', 'templates/nxos/bgp_evpn_vlan_vni_addition.j2') }}"
+        - name: EVPN
+          when: "'junos' in group_names"
+          ansible.netcommon.cli_config:
+            config: "{{ lookup('template', 'templates/junos/4_bgp_evpn_vlan_vni_addition.j2') }}"
+    - name: Remote LOG
+      block:
+        - name: Remote LOG
+          when: "'srlinux' in group_names"
+          nokia.srlinux.cli:
+            commands: "{{ lookup('template', 'templates/srlinux/4_remote_log.j2') }}"
+    - name: Create VLANS
+      block:
+        - name: Create VLANS
+          when: "'nxos' in group_names"
+          ansible.netcommon.cli_config:
+            config: "{{ lookup('template', 'templates/nxos/vlans_create.j2') }}"
+        - name: Create VLANS
+          when: "'junos' in group_names"
+          ansible.netcommon.cli_config:
+            config: "{{ lookup('template', 'templates/junos/5_vlans_create.j2') }}"
+    - name: CE Interface
+      block:
+        - name: CE Interface
+          when: "'nxos' in group_names"
+          ansible.netcommon.cli_config:
+            config: "{{ lookup('template', 'templates/nxos/access_interfaces_to_vlan_mapping.j2') }}"
+        - name: CE Interface
+          when: "'junos' in group_names"
+          ansible.netcommon.cli_config:
+            config: "{{ lookup('template', 'templates/junos/0_access_interfaces_to_vlan_mapping.j2') }}"
+    - name: NVE Configuration
+      block:
+        - name: NVE Configuration
+          when: "'nxos' in group_names"
+          ansible.netcommon.cli_config:
+            config: "{{ lookup('template', 'templates/nxos/vxlan_interface_map_vni.j2') }}"

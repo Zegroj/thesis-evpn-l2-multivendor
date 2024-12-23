@@ -1,0 +1,19 @@
+set routing-options router-id {{ bgp.router_id }}
+set routing-options route-distinguisher-id {{ bgp.router_id }}
+
+set protocols bgp group eBGP type external
+set protocols bgp group eBGP family inet unicast
+set protocols bgp group eBGP export allow-loopback0
+set protocols bgp group eBGP multipath multiple-as
+set protocols bgp group eBGP local-as {{ bgp.ebgp_as }}
+
+set protocols bgp group iBGP-overlay type internal
+set protocols bgp group iBGP-overlay family evpn signaling
+set protocols bgp group iBGP-overlay peer-as {{ bgp.ibgp_as }}
+set protocols bgp group iBGP-overlay local-as {{ bgp.ibgp_as }}
+
+{% for neighbor in bgp.neighbors %}
+set protocols bgp group eBGP neighbor {{ neighbor }} peer-as {{ bgp.neighbors[neighbor].remote_as }}
+set protocols bgp group iBGP-overlay neighbor {{ bgp.neighbors[neighbor].loopback }} local-address {{ bgp.router_id }}
+{% endfor %}
+commit

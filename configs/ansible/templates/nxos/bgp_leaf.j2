@@ -1,0 +1,29 @@
+nv overlay evpn
+feature bgp
+feature fabric forwarding
+feature interface-vlan
+feature vn-segment-vlan-based
+feature nv overlay
+router bgp {{ bgp.as_number }}
+  router-id {{ bgp.router_id }}
+  address-family ipv4 unicast
+    redistribute direct route-map allow-loopback0
+    maximum-paths 2
+  address-family l2vpn evpn
+    maximum-paths 2
+    allow-vni-in-ethertag
+  {% for neighbor in bgp.neighbors -%}
+  neighbor {{ neighbor }}
+    remote-as {{ bgp.neighbors[neighbor].remote_as }}
+    local-as {{ bgp.neighbors[neighbor].local_as }} no-prepend replace-as
+    address-family ipv4 unicast
+  {% endfor -%}
+  {% for neighbor in bgp.neighbors -%}
+  neighbor {{ bgp.neighbors[neighbor].loopback }}
+    remote-as {{ bgp.as_number }}
+    update-source loopback0
+    address-family l2vpn evpn
+      send-community
+      send-community extended
+  {% endfor %}
+

@@ -1,0 +1,30 @@
+interfaces:
+        loopback0:
+                address: '10.0.1.2/32'
+        Ethernet1/2:
+                address: '192.168.21.0/31'
+                description: TO-SPINE-1
+        Ethernet1/3:
+                address: '192.168.22.0/31'
+                description: TO-SPINE-2
+bgp:
+        as_number: 100
+        router_id: '10.0.1.2'
+        neighbors:
+                192.168.21.1:
+                        remote_as: 201
+                        local_as: 102
+                        loopback: '10.0.2.1'
+                192.168.22.1:
+                        remote_as: 202
+                        local_as: 102
+                        loopback: '10.0.2.2'
+vlans:
+        10:
+                vni: 2010
+                name: 'VLAN10'
+                interfaces:
+                        - Ethernet1/1
+                rd: '10.0.1.2:1'
+                export_rt: '100:10'
+                import_rt: '100:10'

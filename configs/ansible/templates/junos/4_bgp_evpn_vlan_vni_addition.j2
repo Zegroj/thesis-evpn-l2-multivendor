@@ -1,0 +1,14 @@
+set switch-options vtep-source-interface {{ vni_source }}
+set switch-options route-distinguisher {{ rd }}
+set protocols evpn encapsulation vxlan
+set protocols evpn multicast-mode ingress-replication
+set protocols evpn default-gateway no-gateway-community
+{% for vlan in vlans %}
+set vlans {{ vlans[vlan].name }} vxlan vni {{ vlans[vlan].vni }}
+set vlans {{ vlans[vlan].name }} vxlan ingress-node-replication
+set protocols evpn vni-options vni {{ vlans[vlan].vni }} vrf-target target:{{vlans[vlan].rt}}
+set protocols evpn extended-vni-list {{ vlans[vlan].vni }}
+set switch-options vrf-target import target:{{ vlans[vlan].import_rt }}
+set switch-options vrf-target export target:{{ vlans[vlan].export_rt }}
+{% endfor %}
+commit

@@ -1,0 +1,31 @@
+interfaces:
+    lo0:
+        address: '10.0.1.3/32'
+    xe-0/0/1:
+        address: '192.168.31.0/31'
+        mtu: 9000
+    xe-0/0/2:
+        address: '192.168.32.0/31'
+        mtu: 9000
+bgp:
+    ebgp_as: 103
+    ibgp_as: 100
+    router_id: '10.0.1.3'
+    neighbors:
+          192.168.31.1:
+                  remote_as: 201
+                  loopback: '10.0.2.1'
+          192.168.32.1:
+                  remote_as: 202
+                  loopback: '10.0.2.2'
+rd: '10.0.1.3:1'
+vni_source: 'lo0.0'
+vlans:
+    10:
+        vni: 2010
+        name: 'VLAN10'
+        rt: '100:10'
+        export_rt: '100:10'
+        import_rt: '100:10'
+        interfaces:
+                - 'xe-0/0/0'
