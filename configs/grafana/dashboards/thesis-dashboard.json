@@ -1,0 +1,798 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "links": [],
+  "panels": [
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 8,
+      "panels": [],
+      "title": "DC State",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "default": true,
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "axisSoftMax": 3000000,
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "bps"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 11,
+        "x": 0,
+        "y": 1
+      },
+      "id": 1,
+      "maxDataPoints": 659,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "interface_traffic_rate_in_bps",
+          "instant": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "interface_traffic_rate_out_bps",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "__auto",
+          "range": true,
+          "refId": "B"
+        }
+      ],
+      "title": "DC Fabric Throughput",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "default": true,
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "gridPos": {
+        "h": 16,
+        "w": 13,
+        "x": 11,
+        "y": 1
+      },
+      "id": 2,
+      "options": {
+        "animationControlEnabled": true,
+        "animationsEnabled": true,
+        "debuggingCtr": {
+          "colorsCtr": 0,
+          "dataCtr": 0,
+          "displaySvgCtr": 0,
+          "mappingsCtr": 0,
+          "timingsCtr": 0
+        },
+        "highlighterEnabled": true,
+        "panZoomEnabled": true,
+        "panelConfig": "https://raw.githubusercontent.com/Zegroj/thesis-evpn-l2-multivendor/refs/heads/main/configs/grafana/flow_panels/multivendor-evpn.clab.grafana.flow_panel.yaml",
+        "siteConfig": "https://raw.githubusercontent.com/Zegroj/thesis-evpn-l2-multivendor/refs/heads/main/configs/grafana/flow_panels/siteconfig.yml",
+        "svg": "https://raw.githubusercontent.com/Zegroj/thesis-evpn-l2-multivendor/refs/heads/main/configs/grafana/flow_panels/multivendor-evpn.clab.drawio.svg",
+        "testDataEnabled": false,
+        "timeSliderEnabled": true
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "interface_oper_state",
+          "instant": false,
+          "legendFormat": "oper-state:{{source}}:{{interface_name}}",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "interface_traffic_rate_out_bps",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "{{source}}:{{interface_name}}:out",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "interface_traffic_rate_in_bps",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "{{source}}:{{interface_name}}:in",
+          "range": true,
+          "refId": "C"
+        }
+      ],
+      "title": "Network Telemetry",
+      "type": "andrewbmchugh-flow-panel"
+    },
+    {
+      "datasource": {
+        "default": true,
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "fixed"
+          },
+          "custom": {
+            "fillOpacity": 70,
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineWidth": 0,
+            "spanNulls": false
+          },
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "dark-red",
+                  "index": 1,
+                  "text": "DOWN"
+                },
+                "1": {
+                  "color": "semi-dark-green",
+                  "index": 0,
+                  "text": "UP"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "dark-red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 11,
+        "x": 0,
+        "y": 6
+      },
+      "id": 3,
+      "options": {
+        "alignValue": "center",
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "mergeValues": true,
+        "rowHeight": 0.9,
+        "showValue": "always",
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "network_instance_oper_state{network_instance_name='$Services'}",
+          "instant": false,
+          "legendFormat": "{{source}}",
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Service: $Services",
+      "type": "state-timeline"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 17
+      },
+      "id": 7,
+      "panels": [],
+      "title": "$NE",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "default": true,
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "decimals": 0,
+          "mappings": [],
+          "max": 9,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 8,
+        "x": 0,
+        "y": 18
+      },
+      "id": 9,
+      "maxDataPoints": 396,
+      "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "pluginVersion": "11.2.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "network_instance_route_table_ipv4_unicast_statistics_active_routes{network_instance_name=\"default\",source=\"$NE\"}",
+          "instant": false,
+          "legendFormat": "IPv4 Active Routes",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "network_instance_route_table_ipv4_unicast_statistics_total_routes{network_instance_name=\"default\",source=\"$NE\"}",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "IPv4 Total Routes",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "network_instance_route_table_ipv4_unicast_statistics_active_routes_with_ecmp{network_instance_name=\"default\",source=\"$NE\"}",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "IPv4 Active ECMP Routes",
+          "range": true,
+          "refId": "C"
+        }
+      ],
+      "title": "Routing Stats",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "default": true,
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 4,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Up Peers"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "blue",
+                      "value": null
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Total Peers"
+            },
+            "properties": [
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "blue",
+                      "value": null
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 9,
+        "x": 8,
+        "y": 18
+      },
+      "id": 10,
+      "maxDataPoints": 396,
+      "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "pluginVersion": "11.2.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "network_instance_protocols_bgp_statistics_up_peers{network_instance_name=\"default\",source=\"$NE\"}",
+          "instant": false,
+          "legendFormat": "Up Peers",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "network_instance_protocols_bgp_statistics_total_peers{network_instance_name=\"default\",source=\"$NE\"}",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Total Peers",
+          "range": true,
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "network_instance_protocols_bgp_statistics_disabled_peers{network_instance_name=\"default\",source=\"$NE\"}",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Disabled Peers",
+          "range": true,
+          "refId": "C"
+        }
+      ],
+      "title": "BGP Peer stats",
+      "type": "gauge"
+    },
+    {
+      "datasource": {
+        "default": true,
+        "type": "prometheus",
+        "uid": "PBFA97CFB590B2093"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 16,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "blue",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 7,
+        "x": 17,
+        "y": 18
+      },
+      "id": 11,
+      "maxDataPoints": 396,
+      "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true,
+        "sizing": "auto"
+      },
+      "pluginVersion": "11.2.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "network_instance_protocols_bgp_statistics_total_received_routes{network_instance_name=\"default\",source=\"$NE\"}",
+          "instant": false,
+          "legendFormat": "Total Received Routes",
+          "range": true,
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "PBFA97CFB590B2093"
+          },
+          "editorMode": "code",
+          "expr": "network_instance_protocols_bgp_statistics_total_active_routes{network_instance_name=\"default\",source=\"$NE\"}",
+          "hide": false,
+          "instant": false,
+          "legendFormat": "Total Active Routes",
+          "range": true,
+          "refId": "B"
+        }
+      ],
+      "title": "BGP Route Stats",
+      "type": "gauge"
+    },
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 23
+      },
+      "id": 6,
+      "panels": [],
+      "title": "Logging $NE",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "default": false,
+        "type": "loki",
+        "uid": "P8E80F9AEF21F6940"
+      },
+      "gridPos": {
+        "h": 6,
+        "w": 24,
+        "x": 0,
+        "y": 24
+      },
+      "id": 12,
+      "options": {
+        "dedupStrategy": "none",
+        "enableLogDetails": true,
+        "prettifyLogMessage": false,
+        "showCommonLabels": false,
+        "showLabels": false,
+        "showTime": true,
+        "sortOrder": "Descending",
+        "wrapLogMessage": true
+      },
+      "targets": [
+        {
+          "datasource": {
+            "type": "loki",
+            "uid": "P8E80F9AEF21F6940"
+          },
+          "editorMode": "code",
+          "expr": "{application=\"$Logs\", source=\"$NE\"}",
+          "queryType": "range",
+          "refId": "A"
+        }
+      ],
+      "title": "Log: $Logs",
+      "type": "logs"
+    }
+  ],
+  "refresh": "5s",
+  "schemaVersion": 39,
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "spine1",
+          "value": "spine1"
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "PBFA97CFB590B2093"
+        },
+        "definition": "label_values(source)",
+        "hide": 0,
+        "includeAll": false,
+        "multi": false,
+        "name": "NE",
+        "options": [],
+        "query": {
+          "qryType": 1,
+          "query": "label_values(source)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 2,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 1,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "default",
+          "value": "default"
+        },
+        "datasource": {
+          "type": "prometheus",
+          "uid": "PBFA97CFB590B2093"
+        },
+        "definition": "label_values(network_instance_name)",
+        "hide": 0,
+        "includeAll": false,
+        "multi": false,
+        "name": "Services",
+        "options": [],
+        "query": {
+          "qryType": 1,
+          "query": "label_values(network_instance_name)",
+          "refId": "PrometheusVariableQueryEditor-VariableQuery"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "sr_license_mgr",
+          "value": "sr_license_mgr"
+        },
+        "datasource": {
+          "type": "loki",
+          "uid": "P8E80F9AEF21F6940"
+        },
+        "definition": "",
+        "hide": 0,
+        "includeAll": false,
+        "multi": false,
+        "name": "Logs",
+        "options": [],
+        "query": {
+          "label": "application",
+          "refId": "LokiVariableQueryEditor-VariableQuery",
+          "stream": "",
+          "type": 1
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-5m",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "Thesis EVPN",
+  "uid": "fe86o7jd6pudca",
+  "version": 8,
+  "weekStart": ""
+}
