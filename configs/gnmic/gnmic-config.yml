@@ -20,9 +20,6 @@ common_srl_subscriptions: &common_srl_subs
     - srl-net-instance
 
 targets:
-  leaf1: *common_srl_subs
-  leaf2: *common_srl_subs
-  leaf3: *common_srl_subs
   spine1: *common_srl_subs
   spine2: *common_srl_subs
 
